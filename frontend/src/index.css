@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --color-light1: oklch(87.68% 0.0217 39.37);
+  --color-dark: oklch(24.61% 0.0035 345.52);
+  --color-light2:oklch(75.08% 0.1315 60.58);
+  --color-light3:oklch(65.81% 0.0949 300.59);
+}
+
+html {
+  color: #222021;
+  background-color: #e4d2cc;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a.active {
+  color: #222021;
+}

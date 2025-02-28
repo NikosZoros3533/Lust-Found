@@ -1,4 +1,4 @@
-import { User } from "../models/userModel.js";
+import User from "../models/userModel.js";
 
 export const getUsers = async (req, res) => {
   try {
@@ -22,14 +22,19 @@ export const getUser = async (req, res) => {
   }
 };
 
-export const createUser = async (req, res) => {
-  try {
-    const user = await User.create(req.body);
-    res.status(201).json(user);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+// export const createUserProfile = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const user = await User.findByIdAndUpdate(id, req.body);
+//     if(!user){
+//       res.status(404).json({message:"User does not exist"})
+//     }
+
+//     res.status(201).json(user);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 
 export const updateUser = async (req, res) => {
   try {

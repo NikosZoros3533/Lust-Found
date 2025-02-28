@@ -1,10 +1,11 @@
 import express from "express";
-import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import usersRoutes from "./routes/usersRoute.js";
 import authRoutes from "./routes/authRoute.js";
 import connectMongoDB from "./config/mongodb.js";
+import cookieParser from "cookie-parser";
+
 
 dotenv.config();
 const app = express();
@@ -12,6 +13,8 @@ const PORT = process.env.PORT || 5000;
 
 //middleware
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser())
 
 //Routes
 app.use("/users", usersRoutes);

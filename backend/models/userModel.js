@@ -21,7 +21,7 @@ const UserSchema = mongoose.Schema(
     gender: {
       type: String,
       enum: ["male", "female", "other"],
-      required: true,
+      default: null,
     },
     city: {
       type: String,
@@ -32,25 +32,28 @@ const UserSchema = mongoose.Schema(
         "heraklion",
         "larissa",
         "volos",
-      ], // Add all cities as needed
-      required: true,
+      ],
+      default: null, // Add all cities as needed
     },
     selfDescription: {
       type: String,
       minlength: 5,
       maxlength: 200,
+      default: null,
     },
     targetDescriptions: [
       {
         type: String,
         minlength: 5,
         maxlength: 200,
+        default: [],
       },
     ],
     posts: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Post",
+        default: [],
       },
     ],
   },
@@ -59,6 +62,5 @@ const UserSchema = mongoose.Schema(
   }
 );
 
-export const User = mongoose.model("User", UserSchema);
-
-
+const User = mongoose.model("User", UserSchema);
+export default User;

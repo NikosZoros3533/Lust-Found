@@ -1,10 +1,13 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
+import City from "../models/city.js";
 
 export const getUserProfile = async (req, res) => {
   const { nickname } = req.params;
   try {
-    const user = await User.findOne({ nickname }).select("-password");
+    const user = await User.findOne({ nickname })
+      .select("-password")
+      .populate({ path: "city", select: "City Region" });
     if (!user) return res.status(404).json({ message: "User not found" });
     res.status(200).json(user);
   } catch (error) {
@@ -87,7 +90,7 @@ export const updateUserProfile = async (req, res) => {
   }
 };
 
-export const deleteUserProfile = async (req, res) => {};
+// export const deleteUserProfile = async (req, res) => {};
 
 // export const getUsers = async (req, res) => {
 //   try {

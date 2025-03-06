@@ -24,15 +24,8 @@ const UserSchema = new mongoose.Schema(
       default: null,
     },
     city: {
-      type: String,
-      enum: [
-        "athina",
-        "thessaloniki",
-        "patras",
-        "heraklion",
-        "larissa",
-        "volos",
-      ],
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "City",
       default: null, // Add all cities as needed
     },
     selfDescription: {

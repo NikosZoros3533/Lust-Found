@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const UserSchema = mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -49,7 +49,7 @@ const UserSchema = mongoose.Schema(
         default: [],
       },
     ],
-    posts: [
+    interestedPosts: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Post",

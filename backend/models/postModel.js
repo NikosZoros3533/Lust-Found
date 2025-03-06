@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const PostSchema = mongoose.Schema(
+const PostSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -25,12 +25,10 @@ const PostSchema = mongoose.Schema(
     gender: {
       type: String,
       enum: ["male", "female", "other"],
-      required: true,
     },
     targetGender: {
       type: String,
       enum: ["male", "female", "other"],
-      required: true,
     },
     encounterDate: {
       type: Date,
@@ -38,7 +36,28 @@ const PostSchema = mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
+    interests: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
+    ],
+    comments: [
+      {
+        text: {
+          type: String,
+          required: true,
+        },
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

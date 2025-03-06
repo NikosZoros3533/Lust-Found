@@ -1,35 +1,28 @@
 import express from "express";
-import { v4 as uuidv4 } from "uuid";
+import { protectRoute } from "../middleware/protectRoute.js";
+import {
+  createPost,
+  interestUninterestPost,
+  commentOnPost,
+  deletePost,
+  updatePost,
+  updateComment,
+  deleteComment,
+  getPostFeed,
+  getLikedPosts
+} from "../controllers/postController.js";
 
 const router = express.Router();
 
+router.post("/create", protectRoute, createPost);
+router.post("/update-post/:id", protectRoute, updatePost);
+router.delete("/delete-post/:id", protectRoute, deletePost);
+router.post("/interest/:id", protectRoute, interestUninterestPost);
+router.post("/comment/:id", protectRoute, commentOnPost);
+router.post("/update-comment/:postId/:commentId", protectRoute, updateComment);
+router.post("/delete-comment/:postId/:commentId", protectRoute, deleteComment);
 
-router.get("/", (req, res) => {
-  res.send(posts);
-});
-
-router.get("/:id", (req, res) => {
-  const { id } = req.params;
-
-  const foundPost = posts.find((post) => post.id === id);
-  if (!foundPost) {
-    res.sendStatus(404);
-  }
-  res.send(foundPost);
-});
-
-router.post("/", (req, res) => {
-  const post = req.body;
-  console.log(post);
-  posts.push({ ...post, id: uuidv4() });
-  res.send(`${post.title} has been added to the database`);
-});
-
-router.delete("/:id", (req, res) => {
-  const { id } = req.params;
-  posts = posts.filter((post) => post.id !== id);
-
-  res.send(`${id} deleted from database`);
-});
+router.get("/all",getPostFeed)
+router.get("/likedPosts",protectRoute,getLikedPosts)
 
 export default router;

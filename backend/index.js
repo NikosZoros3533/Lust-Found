@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import usersRoutes from "./routes/usersRoute.js";
 import authRoutes from "./routes/authRoute.js";
+import postsRoutes from "./routes/postsRoute.js";
 import connectMongoDB from "./config/mongodb.js";
 import cookieParser from "cookie-parser";
 
@@ -19,6 +20,7 @@ app.use(cookieParser())
 //Routes
 app.use("/users", usersRoutes);
 app.use("/auth", authRoutes);
+app.use("/posts", postsRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello from homepage");

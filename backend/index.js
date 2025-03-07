@@ -6,6 +6,7 @@ import usersRoutes from "./routes/usersRoute.js";
 import authRoutes from "./routes/authRoute.js";
 import postsRoutes from "./routes/postsRoute.js";
 import notificationRoutes from "./routes/notificationRoute.js";
+import cityRoutes from "./routes/cityRoute.js";
 
 import connectMongoDB from "./config/mongodb.js";
 import cookieParser from "cookie-parser";
@@ -24,6 +25,7 @@ app.use("/users", usersRoutes);
 app.use("/auth", authRoutes);
 app.use("/posts", postsRoutes);
 app.use("/notifications", notificationRoutes);
+app.use("/cities", cityRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello from homepage");

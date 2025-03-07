@@ -225,6 +225,7 @@ export const getPostFeed = async (req, res) => {
   try {
     const posts = await Post.find()
       .sort({ createdAt: -1 })
+      .populate({ path: "encounterCity", select: "City Region" })
       .populate({ path: "user", select: "nickname gender " })
       .populate({ path: "comments.user", select: "nickname gender" });
     if (posts.length === 0) {
@@ -233,6 +234,22 @@ export const getPostFeed = async (req, res) => {
     res.status(200).json(posts);
   } catch (error) {
     console.log("Error in getAllPosts controller: ", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const getPost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id)
+      .populate({ path: "encounterCity", select: "City Region" })
+      .populate({ path: "user", select: "nickname gender " })
+      .populate({ path: "comments.user", select: "nickname gender" });
+    if (!post) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+    res.status(200).json(post);
+  } catch (error) {
+    console.log("Error in getPost controller: ", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -249,7 +266,7 @@ export const getLikedPosts = async (req, res) => {
     })
       .populate({ path: "user", select: "nickname gender" })
       .populate({ path: "comments.user", select: "nickname gender" });
-    res.status(200).json(likedPosts)
+    res.status(200).json(likedPosts);
   } catch (error) {
     console.log("Error in getLikedPosts controller: ", error);
     res.status(500).json({ error: "Internal server error" });

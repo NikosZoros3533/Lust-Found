@@ -6,7 +6,7 @@ const PostSchema = new mongoose.Schema(
       type: String,
       required: true,
       minlength: 5,
-      maxlength: 20,
+      maxlength: 50,
     },
     encounterDescription: {
       type: String,
@@ -15,9 +15,9 @@ const PostSchema = new mongoose.Schema(
       maxlength: 200,
     },
     encounterCity: {
-      type: String,
-      enum: ["athens", "thessaloniki", "patras", "heraklion", "larissa"],
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "City",
+      default: null, 
     },
     encounterPoint: {
       type: String,

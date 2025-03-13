@@ -3,20 +3,40 @@
 @theme {
   --color-light1: oklch(87.68% 0.0217 39.37);
   --color-dark: oklch(24.61% 0.0035 345.52);
-  --color-light2:oklch(75.08% 0.1315 60.58);
-  --color-light3:oklch(65.81% 0.0949 300.59);
+  --color-light2: oklch(75.08% 0.1315 60.58);
+  --color-light3: oklch(65.81% 0.0949 300.59);
+
+  --font-menu: "menu", "sans-serif";
+  --font-normal: "normal", "sans-serif";
 }
 
 html {
   color: #222021;
   background-color: #e4d2cc;
-
+  scroll-behavior: smooth;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font-normal);
 }
 
 a.active {
-  color: #222021;
+  color: var(--color-light2);
+}
+
+a.activeInConnection{
+  color:var(--color-light3)
+}
+
+@font-face {
+  font-family: "menu";
+  src: url("/fonts/menu/Chillax-Bold.woff2") format("woff2"),
+    url("/fonts/menu/Chillax-Bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "normal";
+  src: url("/fonts/clash/ClashDisplay-Medium.woff2") format("woff2"),
+    url("/fonts/clash/ClashDisplay-Medium.woff") format("woff");
 }

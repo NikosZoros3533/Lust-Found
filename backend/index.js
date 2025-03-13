@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+
 //Routes
 app.use("/users", usersRoutes);
 app.use("/auth", authRoutes);

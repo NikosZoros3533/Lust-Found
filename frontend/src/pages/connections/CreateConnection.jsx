@@ -25,16 +25,17 @@ const CreateConnection = () => {
   const onSubmit = (data) => {
     console.log("Form Data:", data);
   };
-
+  let cssInputClass =
+    "w-full p-2 border rounded focus:bg-light3 focus:outline-0";
   return (
-    <div className="max-w-2xl mx-auto bg-light3 px-18 py-10 rounded-xl shadow-lg m-6">
-      <h1 className="text-2xl font-bold mb-4">Create a Missed Connection</h1>
+    <div className="max-w-2xl mx-auto n px-18 py-10  m-6">
+      <h1 className="text-3xl font-bold mb-8">Create a Missed Connection</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <label className="block font-medium">Title</label>
           <input
             {...register("title")}
-            className="w-full p-2 border rounded focus:bg-light2 focus:outline-0"
+            className={cssInputClass}
             placeholder="Briefly describe the connection"
           />
           {errors.title && (
@@ -46,11 +47,13 @@ const CreateConnection = () => {
           <label className="block font-medium">Description</label>
           <textarea
             {...register("encounterDescription")}
-            className="w-full p-2 border rounded focus:bg-light2 focus:outline-0"
+            className={cssInputClass}
             placeholder="Describe your encounter..."
           />
           {errors.encounterDescription && (
-            <p className="text-light1 text-sm">{errors.encounterDescription.message}</p>
+            <p className="text-light1 text-sm">
+              {errors.encounterDescription.message}
+            </p>
           )}
         </div>
 
@@ -58,29 +61,33 @@ const CreateConnection = () => {
           <label className="block font-medium">Location</label>
           <input
             {...register("encounterCity")}
-            className="w-full p-2 border rounded focus:bg-light2 focus:outline-0"
+            className={cssInputClass}
             placeholder="Where did it happen?"
           />
           {errors.encounterCity && (
-            <p className="text-light1 text-sm">{errors.encounterCity.message}</p>
+            <p className="text-light1 text-sm">
+              {errors.encounterCity.message}
+            </p>
           )}
         </div>
         <div>
-          <label className="block font-medium">Location</label>
+          <label className="block font-medium">Point</label>
           <input
             {...register("encounterPoint")}
-            className="w-full p-2 border rounded focus:bg-light2 focus:outline-0"
+            className={cssInputClass}
             placeholder="Where did it happen?"
           />
           {errors.encounterPoint && (
-            <p className="text-light1 text-sm">{errors.encounterPoint.message}</p>
+            <p className="text-light1 text-sm">
+              {errors.encounterPoint.message}
+            </p>
           )}
         </div>
         <div>
           <label className="block font-medium">Gender</label>
           <select
             {...register("gender")}
-            className="w-full p-2 border rounded focus:bg-light2 focus:outline-0"
+            className={cssInputClass}
             placeholder="Your gender"
           >
             <option value={null} defaultValue={null}>
@@ -100,7 +107,7 @@ const CreateConnection = () => {
           <label className="block font-medium">Target Gender</label>
           <select
             {...register("targetGender")}
-            className="w-full p-2 border rounded focus:bg-light2 focus:outline-0"
+            className={cssInputClass}
             placeholder="Your gender"
           >
             <option value={null} defaultValue={null}>
@@ -119,7 +126,10 @@ const CreateConnection = () => {
 
         <button
           type="submit"
-          className="w-full bg-dark text-light1 p-2 rounded hover:bg-light2 focus:outline-0"
+          className="cursor-pointer w-full transition-all bg-dark text-light1 p-2 rounded-lg
+border-light3
+border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] hover:text-light3
+active:border-b-[2px] active:brightness-90 active:translate-y-[2px]"
         >
           Connect
         </button>
@@ -129,3 +139,10 @@ const CreateConnection = () => {
 };
 
 export default CreateConnection;
+
+// cursor-pointer transition-all bg-blue-500 text-white px-6 py-2 rounded-lg
+// border-blue-600
+// border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+// active:border-b-[2px] active:brightness-90 active:translate-y-[2px]
+
+// w-full bg-dark text-light1 p-2 rounded hover:bg-light2 hover:text-dark focus:outline-0

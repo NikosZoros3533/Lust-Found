@@ -9,6 +9,8 @@ import CreateConnection from "./pages/connections/CreateConnection";
 import RootLayout from "./pages/RootLayout";
 import ConnectionsRoot from "./pages/ConnectionsRoot";
 import MyConnections from "./pages/connections/MyConnections";
+import Profile from "./pages/profile/Profile";
+import EditProfile from "./pages/profile/EditProfile";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,8 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "login", element: <LoginPage /> },
       { path: "signup", element: <SignupPage /> },
+      { path: "profile", element: <Profile /> },
+      { path: "profile/edit", element: <EditProfile /> },
       {
         path: "connections",
         element: <ConnectionsRoot />,

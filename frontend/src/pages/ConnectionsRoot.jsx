@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import ConnectionNavigation from "../components/ConnectionNavigation"
+import ConnectionNavigation from "../components/connectionsUI/ConnectionNavigation"
 
 export default function ConnectionsRoot() {
   return (

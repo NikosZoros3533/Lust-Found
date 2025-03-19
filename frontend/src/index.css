@@ -10,6 +10,7 @@
   --font-normal: "normal", "sans-serif";
 }
 
+
 html {
   color: #222021;
   background-color: #e4d2cc;
@@ -19,6 +20,11 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: var(--font-normal);
+  
+  
+}
+#root{
+  min-height:100vh;
 }
 
 a.active {
@@ -40,3 +46,10 @@ a.activeInConnection{
   src: url("/fonts/clash/ClashDisplay-Medium.woff2") format("woff2"),
     url("/fonts/clash/ClashDisplay-Medium.woff") format("woff");
 }
+/* 
+light1->#e4d2cc
+light2->#ea9950
+light3->#9b84c3
+dark->#222021
+
+*/

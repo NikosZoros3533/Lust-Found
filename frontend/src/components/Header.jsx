@@ -15,9 +15,9 @@ export default function Header() {
         {/* Logo */}
         <NavLink
           to="/"
-          className="text-light2 font-bold tracking-wide text-2xl sm:text-3xl font-menu"
+          className="text-light2 font-bold gap-2 tracking-wide text-2xl sm:text-3xl font-menu flex flex-row items-end"
         >
-          Lust & Found
+          Lust <span className="text-light1">&</span> Found
         </NavLink>
 
         {/* Hamburger Menu Button (Visible on small screens) */}
@@ -38,10 +38,11 @@ export default function Header() {
           <ul className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 p-4 sm:p-0">
             <li>
               <NavLink
-                to=""
+                to="profile"
                 className={({ isActive }) =>
                   isActive ? activeClass : nonActiveClass
                 }
+                onClick={toggleMenu}
               >
                 Profile
               </NavLink>
@@ -52,6 +53,7 @@ export default function Header() {
                 className={({ isActive }) =>
                   isActive ? activeClass : nonActiveClass
                 }
+                onClick={toggleMenu}
               >
                 Connections
               </NavLink>
@@ -61,11 +63,12 @@ export default function Header() {
                 to="/login"
                 className={({ isActive }) =>
                   isActive
-                    ? activeClass
-                    : nonActiveClass + " border rounded-2xl p-2"
+                    ? "ml-3 text-lg font-menu bg-dark text-light2 rounded-2xl p-4 "
+                    : "group relative inline-flex font-menu ml-3 text-lg px-2 py-0.5 items-center justify-center overflow-hidden rounded-2xl border border-dark  text-dark bg-light2 transition-all duration-100 [box-shadow:8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[3px] hover:translate-y-[3px] hover:[box-shadow:0px_0px_rgb(82_82_82)]"
                 }
+                onClick={toggleMenu}
               >
-                Log In
+                Log In &#10137;
               </NavLink>
             </li>
           </ul>
@@ -74,3 +77,6 @@ export default function Header() {
     </header>
   );
 }
+
+// ml-3 text-lg font-menu bg-light2 rounded-2xl p-3 border border-dark shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:transform hover:shadow-none transition-all duration-200 ease-in-out"
+// <button class="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md border border-neutral-200 bg-transparent px-6 font-medium text-neutral-600 transition-all duration-100 [box-shadow:5px_5px_rgb(82_82_82)] hover:translate-x-[3px] hover:translate-y-[3px] hover:[box-shadow:0px_0px_rgb(82_82_82)]">Hover me</button>

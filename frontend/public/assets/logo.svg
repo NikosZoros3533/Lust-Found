@@ -1,0 +1,30 @@
+<svg
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 200 200"
+            width="50"
+            height="50"
+          >
+            <circle
+              cx="100"
+              cy="100"
+              r="90"
+              fill="#222021"
+              stroke="#ea9950"
+              stroke-width="5"
+            />
+
+            <path
+              d="M100 40C80 40 60 55 60 80C60 110 100 160 100 160C100 160 140 110 140 80C140 55 120 40 100 40Z"
+              fill="#ea9950"
+              stroke="#ea9950"
+              stroke-width="5"
+            />
+
+            <path
+              d="M100 90C100 90 92 75 80 75C70 75 65 83 65 90C65 100 75 110 100 125C125 110 135 100 135 90C135 83 130 75 120 75C108 75 100 90 100 90Z"
+              fill="#e4d2cc"
+              stroke="#9b84c3"
+              stroke-width="3"
+            />
+          </svg>

@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { user } from "./../../db";
+import LogoutButton from "../../components/LogoutButton";
 
 
 export default function Profile() {
@@ -48,9 +49,9 @@ export default function Profile() {
         <Link to="/profile/edit" className="bg-light2 text-dark px-6 py-3 rounded-lg shadow-md hover:shadow-lg hover:bg-dark hover:text-light3 transition-all mb-4">
           Edit Profile
         </Link>
-        <button className="bg-dark text-light2 px-6 py-3 rounded-lg ml-3 mb-4  shadow-md hover:shadow-lg hover:bg-light3 hover:text-dark transition-all">
+        <LogoutButton className="bg-dark text-light2 px-6 py-3 rounded-lg ml-3 mb-4  shadow-md hover:shadow-lg hover:bg-light3 hover:text-dark transition-all">
           Log Out
-        </button>
+        </LogoutButton>
       </section>
     </div>
   );

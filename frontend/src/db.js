@@ -48,7 +48,7 @@ export const posts = [
 
 export const user = {
   _id: "5",
-  email: "nikos7kozani@gmail.com",
+ 
   password: "1234567",
   nickname: "NikosZoros",
   gender: "male",

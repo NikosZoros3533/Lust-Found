@@ -19,7 +19,6 @@ export const getUserProfile = async (req, res) => {
 export const updateUserProfile = async (req, res) => {
   const {
     nickname,
-    email,
     currentPassword,
     newPassword,
     gender,
@@ -64,18 +63,9 @@ export const updateUserProfile = async (req, res) => {
         return res.status(400).json({ error: "Nickname already exists" });
       }
     }
-    if (email) {
-      const existingUser = await User.findOne({ email });
-      if (existingUser) {
-        return res.status(400).json({ error: "Nickname already exists" });
-      }
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        return res.status(400).json({ error: "Invalid email format" });
-      }
-    }
+   
     user.nickname = nickname || user.nickname;
-    user.email = email || user.email;
+   
     user.gender = gender || user.gender;
     user.city = city || user.city;
     user.selfDescription = selfDescription || user.selfDescription;

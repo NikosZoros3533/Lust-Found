@@ -10,7 +10,7 @@ export default function EditProfile() {
   // Initialize user data state
   const [userData, setUserData] = useState({
     nickname: "NikosZoros",
-    email: "nikos7kozani@gmail.com",
+  
     gender: "male",
     city: { City: "Athens", Region: "Attica" },
     selfDescription: "psilos melaxrinos me magoula",

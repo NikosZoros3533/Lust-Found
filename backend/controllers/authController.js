@@ -4,21 +4,11 @@ import { generateTokenAndSetCookie } from "../lib/utils/generateToken.js";
 
 export const signup = async (req, res) => {
   try {
-    const { email, password, nickname } = req.body;
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({ error: "Invalid email format" });
-    }
+    const { password, nickname } = req.body;
 
     const existingUser = await User.findOne({ nickname });
     if (existingUser) {
       return res.status(400).json({ error: "Username already existing" });
-    }
-
-    const existingEmail = await User.findOne({ email });
-    if (existingEmail) {
-      return res.status(400).json({ error: "Email already existing" });
     }
 
     if (password.length < 6) {
@@ -31,7 +21,6 @@ export const signup = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     const newUser = new User({
-      email,
       password: hashedPassword,
       nickname,
     });
@@ -40,7 +29,6 @@ export const signup = async (req, res) => {
       await newUser.save();
       res.status(201).json({
         _id: newUser._id,
-        email: newUser.email,
         nickname: newUser.nickname,
       });
     } else {
@@ -67,7 +55,6 @@ export const login = async (req, res) => {
     generateTokenAndSetCookie(user.id, res);
     res.status(200).json({
       _id: user._id,
-      email: user.email,
       nickname: user.nickname,
     });
   } catch (error) {

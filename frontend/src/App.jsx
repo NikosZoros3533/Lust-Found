@@ -11,6 +11,7 @@ import ConnectionsRoot from "./pages/ConnectionsRoot";
 import MyConnections from "./pages/connections/MyConnections";
 import Profile from "./pages/profile/Profile";
 import EditProfile from "./pages/profile/EditProfile";
+import { Toaster } from "react-hot-toast";
 
 const router = createBrowserRouter([
   {
@@ -37,7 +38,12 @@ const router = createBrowserRouter([
   },
 ]);
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <Toaster/>
+    </>
+  );
 }
 
 export default App;

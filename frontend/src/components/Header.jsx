@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"; // Heroicons
+import { useSelector } from "react-redux";
+import LogoutButton from "./LogoutButton";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
+  const { authUser } = useSelector((state) => state.auth);
 
   let activeClass = "text-xl font-menu text-light2";
   let nonActiveClass = "text-dark text-lg font-menu hover:text-light2";
@@ -36,17 +39,20 @@ export default function Header() {
           }`}
         >
           <ul className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 p-4 sm:p-0">
-            <li>
-              <NavLink
-                to="profile"
-                className={({ isActive }) =>
-                  isActive ? activeClass : nonActiveClass
-                }
-                onClick={toggleMenu}
-              >
-                Profile
-              </NavLink>
-            </li>
+            {authUser && (
+              <li>
+                <NavLink
+                  to="profile"
+                  className={({ isActive }) =>
+                    isActive ? activeClass : nonActiveClass
+                  }
+                  onClick={toggleMenu}
+                >
+                  Profile
+                </NavLink>
+              </li>
+            )}
+
             <li>
               <NavLink
                 to="/connections"
@@ -58,24 +64,28 @@ export default function Header() {
                 Connections
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/login"
-                className={({ isActive }) =>
-                  isActive
-                    ? "ml-3 text-lg font-menu bg-dark text-light2 rounded-2xl p-4 "
-                    : "group relative inline-flex font-menu ml-3 text-lg px-2 py-0.5 items-center justify-center overflow-hidden rounded-2xl border border-dark  text-dark bg-light2 transition-all duration-100 [box-shadow:8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[3px] hover:translate-y-[3px] hover:[box-shadow:0px_0px_rgb(82_82_82)]"
-                }
-                onClick={toggleMenu}
-              >
-                Log In &#10137;
-              </NavLink>
-            </li>
+            {authUser ? (
+              <li>
+                <LogoutButton />
+              </li>
+            ) : (
+              <li>
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "ml-3 text-lg font-menu bg-dark text-light2 rounded-2xl p-4 "
+                      : "group relative inline-flex font-menu ml-3 text-lg px-2 py-0.5 items-center justify-center overflow-hidden rounded-2xl border border-dark  text-dark bg-light2 transition-all duration-100 [box-shadow:8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[3px] hover:translate-y-[3px] hover:[box-shadow:0px_0px_rgb(82_82_82)]"
+                  }
+                  onClick={toggleMenu}
+                >
+                  Log In
+                </NavLink>
+              </li>
+            )}
           </ul>
         </nav>
       </div>
     </header>
   );
 }
-
-

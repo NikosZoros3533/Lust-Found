@@ -12,6 +12,11 @@ import MyConnections from "./pages/connections/MyConnections";
 import Profile from "./pages/profile/Profile";
 import EditProfile from "./pages/profile/EditProfile";
 import { Toaster } from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setUser, setError, setLoading } from "./store/authSlice";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -21,27 +26,95 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "login", element: <LoginPage /> },
       { path: "signup", element: <SignupPage /> },
-      { path: "profile", element: <Profile /> },
-      { path: "profile/edit", element: <EditProfile /> },
+      {
+        path: "profile",
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "profile/edit",
+        element: (
+          <ProtectedRoute>
+            <EditProfile />
+          </ProtectedRoute>
+        ),
+      },
       {
         path: "connections",
         element: <ConnectionsRoot />,
         children: [
           { index: true, element: <Connections /> },
           { path: ":id", element: <ConnectionDetail /> },
-          { path: "mine", element: <MyConnections /> },
-          { path: "create", element: <CreateConnection /> },
-          { path: ":id/edit", element: <EditConnection /> },
+          {
+            path: "mine",
+            element: (
+              <ProtectedRoute>
+                <MyConnections />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "create",
+            element: (
+              <ProtectedRoute>
+                <CreateConnection />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: ":id/edit",
+            element: (
+              <ProtectedRoute>
+                <EditConnection />
+              </ProtectedRoute>
+            ),
+          },
         ],
       },
     ],
   },
 ]);
+
 function App() {
+  const dispatch = useDispatch();
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["authUser"],
+    queryFn: async () => {
+      try {
+        const res = await fetch("/api/auth/me");
+        const data = res.json();
+        if (data.error) {
+          return null;
+        }
+        if (!res.ok) {
+          throw new Error(data.error || "Something went wrong");
+        }
+        console.log(data);
+        return data;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    retry: false,
+  });
+
+  useEffect(() => {
+    dispatch(setLoading(isLoading));
+    if (data) {
+      dispatch(setUser(data));
+    } else if (error) {
+      dispatch(setError(error.message));
+    }
+  }, [data, error, isLoading]);
+  console.log(data);
+
   return (
     <>
       <RouterProvider router={router} />
-      <Toaster/>
+      <Toaster />
     </>
   );
 }

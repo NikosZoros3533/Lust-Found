@@ -46,7 +46,7 @@ export default function Profile() {
 
       {/* Profile Actions Section */}
       <section className="text-center">
-        <Link to="/profile/edit" className="bg-light2 text-dark px-6 py-3 rounded-lg shadow-md hover:shadow-lg hover:bg-dark hover:text-light3 transition-all mb-4">
+        <Link to="/profile/edit" className="bg-light2 text-dark mr-2 px-6 py-3 rounded-lg shadow-md hover:shadow-lg hover:bg-dark hover:text-light3 transition-all mb-4">
           Edit Profile
         </Link>
         <LogoutButton className="bg-dark text-light2 px-6 py-3 rounded-lg ml-3 mb-4  shadow-md hover:shadow-lg hover:bg-light3 hover:text-dark transition-all">

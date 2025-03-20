@@ -4,8 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-
-
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/authSlice";
 
 const schema = z.object({
   nickname: z
@@ -16,6 +16,7 @@ const schema = z.object({
 });
 
 export default function LoginPage() {
+  const dispatch = useDispatch();
   let navigate = useNavigate();
   const {
     register,
@@ -46,7 +47,8 @@ export default function LoginPage() {
       console.log(data);
 
       toast.success(`Logged in as ${data.nickname}`);
-      navigate("/profile")
+      dispatch(setUser(data));
+      navigate("/profile");
     },
   });
 

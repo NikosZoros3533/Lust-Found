@@ -1,9 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-
-
+import { useDispatch } from "react-redux";
+import { logout } from "../store/authSlice";
 
 export default function LogoutButton() {
+  const dispatch = useDispatch();
   const { mutate, isPending, isError, error } = useMutation({
     mutationFn: async () => {
       try {
@@ -20,13 +21,14 @@ export default function LogoutButton() {
     },
     onSuccess: () => {
       toast.success("Logged out");
+      dispatch(logout());
     },
   });
 
   return (
     <>
       <button
-        className="bg-dark text-light2 px-6 py-3 rounded-lg ml-3 mb-4  shadow-md hover:shadow-lg hover:bg-light3 hover:text-dark transition-all"
+        className="bg-dark text-light2 px-6 py-3 rounded-lg   shadow-md hover:shadow-lg hover:bg-light2 cursor-pointer hover:text-dark transition-all"
         onClick={() => mutate()}
         disabled={isPending}
       >

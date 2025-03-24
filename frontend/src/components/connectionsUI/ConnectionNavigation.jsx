@@ -14,7 +14,7 @@ export default function ConnectionNavigation() {
           My Connections
         </NavLink>
         <NavLink to="/connections/create" className={({ isActive }) => (isActive ? activeClass : nonActiveClass)}>
-          +New Connection
+          New Connection+
         </NavLink>
       </div>
     </header>

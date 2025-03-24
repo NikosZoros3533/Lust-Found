@@ -48,10 +48,10 @@ export default function ConnectionItem({ post }) {
 
       {/* Likes & Comments Count */}
       <div className="flex justify-end items-center text-base">
-        <div className="flex items-center space-x-1 bg-dark text-light2 p-3 rounded-3xl">
+        <button className="flex items-center space-x-1 bg-dark text-light2 p-3 rounded-3xl cursor-pointer">
           <HeartIcon className="h-4 w-4 text-light3" />
           <span>{post.interests.length}</span>
-        </div>
+        </button>
       </div>
 
       {/* Comments Section */}

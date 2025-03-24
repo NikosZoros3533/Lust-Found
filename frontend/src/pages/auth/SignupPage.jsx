@@ -1,11 +1,10 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-
-
+import { queryClient, signup } from "../../fetchFunctions";
 
 const schema = z
   .object({
@@ -24,43 +23,26 @@ const schema = z
   });
 
 export default function SignupPage() {
+  let navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
+    mode: "onBlur",
   });
 
   const { mutate, isError, isPending, error } = useMutation({
-    mutationFn: async ({ nickname, password}) => {
-      try {
-        const res = await fetch("api/auth/signup", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ nickname, password }),
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          throw new Error(data.error || "Failed to create an account");
-        }
-        
-        if (data.error) {
-          throw new Error(data.error);
-        }
-        console.log(data);
-        return data;
-      } catch (error) {
-        console.log(error);
-        throw error;
-      }
-    },
+    mutationFn: signup,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
       toast.success("Acount created succesfully");
+      navigate("/profile");
     },
   });
 
-  const onSubmit = ({ nickname, password}) => {  
+  const onSubmit = ({ nickname, password }) => {
     const dataToSend = { nickname, password };
     mutate(dataToSend);
   };
@@ -113,7 +95,6 @@ export default function SignupPage() {
               <p className="text-light1">{errors.confirmPassword.message}</p>
             )}
           </div>
-          
 
           <button
             disabled={isPending}
@@ -133,7 +114,6 @@ export default function SignupPage() {
     </div>
   );
 }
-
 
 /*
 

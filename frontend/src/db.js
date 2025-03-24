@@ -48,7 +48,6 @@ export const posts = [
 
 export const user = {
   _id: "5",
- 
   password: "1234567",
   nickname: "NikosZoros",
   gender: "male",
@@ -57,3 +56,5 @@ export const user = {
   targetDescription: ["Blue eyes", "Gypsy", "Blonde Dark"],
   interestedPosts: ["1"],
 };
+
+export const user2 = null

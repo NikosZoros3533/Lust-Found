@@ -1,12 +1,16 @@
 import { Outlet } from "react-router";
 import ConnectionNavigation from "../components/connectionsUI/ConnectionNavigation";
-import { useSelector } from "react-redux";
+import { getMe } from "../fetchFunctions";
+import { useQuery } from "@tanstack/react-query";
 
 export default function ConnectionsRoot() {
-  const { authUser } = useSelector((state) => state.auth);
+  const { data: user } = useQuery({
+    queryKey: ["user"],
+    queryFn: getMe,
+  });
   return (
     <>
-      {authUser && <ConnectionNavigation />}
+      {user && <ConnectionNavigation />}
       <Outlet />
     </>
   );

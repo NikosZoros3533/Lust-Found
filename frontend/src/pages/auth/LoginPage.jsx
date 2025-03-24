@@ -4,8 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../store/authSlice";
+import { login, queryClient } from "../../fetchFunctions";
 
 const schema = z.object({
   nickname: z
@@ -16,43 +15,24 @@ const schema = z.object({
 });
 
 export default function LoginPage() {
-  const dispatch = useDispatch();
+  const { mutate, isPending, isError, error } = useMutation({
+    mutationFn: login,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      toast.success("Logged in");
+      navigate("/connections");
+    },
+  });
+
   let navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(schema) });
-
-  const { mutate, isPending, isError, error } = useMutation({
-    mutationFn: async ({ nickname, password }) => {
-      try {
-        const res = await fetch("/api/auth/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ nickname, password }),
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          throw new Error(data.error || "Failed to Log in");
-        }
-        return data;
-      } catch (error) {
-        throw new Error(error);
-      }
-    },
-    onSuccess: (data) => {
-      console.log(data);
-
-      toast.success(`Logged in as ${data.nickname}`);
-      dispatch(setUser(data));
-      navigate("/profile");
-    },
-  });
+  } = useForm({ resolver: zodResolver(schema), mode: "onBlur" });
 
   const onSubmit = (data) => {
+
     mutate(data);
   };
 

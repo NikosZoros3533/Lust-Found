@@ -1,13 +1,21 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"; // Heroicons
-import { useSelector } from "react-redux";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"; 
 import LogoutButton from "./LogoutButton";
+import { getMe } from "../fetchFunctions";
+import { useQuery } from "@tanstack/react-query";
+
+
 
 export default function Header() {
+  
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
-  const { authUser } = useSelector((state) => state.auth);
+  
+  const {data:user}=useQuery({
+    queryKey: ["user"],
+    queryFn: getMe,
+  });
 
   let activeClass = "text-xl font-menu text-light2";
   let nonActiveClass = "text-dark text-lg font-menu hover:text-light2";
@@ -39,7 +47,7 @@ export default function Header() {
           }`}
         >
           <ul className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 p-4 sm:p-0">
-            {authUser && (
+            {user && (
               <li>
                 <NavLink
                   to="profile"
@@ -64,7 +72,7 @@ export default function Header() {
                 Connections
               </NavLink>
             </li>
-            {authUser ? (
+            {user ? (
               <li>
                 <LogoutButton />
               </li>
@@ -79,7 +87,7 @@ export default function Header() {
                   }
                   onClick={toggleMenu}
                 >
-                  Log In
+                  Log In 
                 </NavLink>
               </li>
             )}

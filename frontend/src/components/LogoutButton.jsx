@@ -1,40 +1,27 @@
-import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { logout } from "../store/authSlice";
+import { useMutation } from "@tanstack/react-query";
+import { logout, queryClient } from "../fetchFunctions";
+import { useNavigate } from "react-router";
 
 export default function LogoutButton() {
-  const dispatch = useDispatch();
-  const { mutate, isPending, isError, error } = useMutation({
-    mutationFn: async () => {
-      try {
-        const res = await fetch("api/auth/logout", {
-          method: "POST",
-        });
-        const data = res.json();
-        if (!res.ok) {
-          throw new Error(data.error || "Something went wrong");
-        }
-      } catch (error) {
-        throw new Error(error);
-      }
-    },
+  const navigate = useNavigate();
+  const {mutate}=useMutation({
+    mutationFn: logout,
     onSuccess: () => {
       toast.success("Logged out");
-      dispatch(logout());
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      navigate("/connections");
     },
   });
 
+  function handleLogout(){
+    mutate()
+  }
   return (
     <>
-      <button
-        className="bg-dark text-light2 px-6 py-3 rounded-lg   shadow-md hover:shadow-lg hover:bg-light2 cursor-pointer hover:text-dark transition-all"
-        onClick={() => mutate()}
-        disabled={isPending}
-      >
+      <button className="bg-dark text-light2 px-4 py-2 rounded-lg   shadow-md hover:shadow-lg hover:bg-light2 cursor-pointer hover:text-dark transition-all" onClick={handleLogout}>
         Log Out
       </button>
-      {isError && <p>{error.message}</p>}
     </>
   );
 }

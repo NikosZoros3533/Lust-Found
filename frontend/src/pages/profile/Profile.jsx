@@ -40,7 +40,7 @@ export default function Profile() {
           Target Description
         </h2>
         <ul className="list-disc pl-6 text-light2">
-          {user.targetDescription?.map((desc, index) => (
+          {user.targetDescriptions?.map((desc, index) => (
             <li key={index} className="mb-2">
               {desc}
             </li>

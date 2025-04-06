@@ -11,7 +11,7 @@ const schema = z
     nickname: z
       .string()
       .min(4, "Nickname must be at least 4 characters")
-      .max(15, "Nickname must be at most 15 characters"),
+      .max(30, "Nickname must be at most 30 characters"),
     password: z.string().min(7, "Password must be at least 7 characters"),
     confirmPassword: z
       .string()

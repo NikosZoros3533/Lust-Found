@@ -23,10 +23,17 @@ import Footer from "./components/Footer";
 import { useQuery } from "@tanstack/react-query";
 
 function App() {
-  const {data:user}=useQuery({
+  const { data: user, isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: getMe,
   });
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <p>Loading...</p>
+      </div>
+    );
+  }
   return (
     <Router>
       <Header />
@@ -38,7 +45,7 @@ function App() {
         />
         <Route
           path="/signup"
-          element={user ? <Navigate to="profile" /> : <SignupPage />}
+          element={user ? <Navigate to="/profile" /> : <SignupPage />}
         />
 
         {/* Protected Routes */}
@@ -48,7 +55,7 @@ function App() {
         />
         <Route
           path="/profile/edit"
-          element={user ? <EditProfile /> : <Navigate to="login" />}
+          element={user ? <EditProfile /> : <Navigate to="/login" />}
         />
 
         {/* Connections Routes */}
@@ -60,9 +67,7 @@ function App() {
           />
           <Route
             path="create"
-            element={
-              user ? <CreateConnection /> : <Navigate to="/connections" />
-            }
+            element={user ? <CreateConnection /> : <Navigate to="/signup" />}
           />
           <Route path=":id" element={<ConnectionDetail />} />
           <Route

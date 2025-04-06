@@ -68,14 +68,14 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            className="w-full bg-dark text-light1 p-2 rounded hover:bg-light2 hover:text-dark  focus:outline-0"
+            className="w-full bg-dark text-light1 p-2  rounded hover:bg-light2 hover:text-dark cursor-pointer focus:outline-0"
             disabled={isPending}
           >
             {isPending ? "Loading..." : "Sign In"}
           </button>
           {isError && <p className="text-light1">{error.message}</p>}
           <Link to="/signup" className="flex justify-end">
-            <button className="w-auto mt-6 bg-dark text-light1 p-2 rounded hover:bg-light2 hover:text-dark  focus:outline-0">
+            <button   className="w-auto mt-6 bg-dark text-light1 p-2 rounded hover:bg-light2 hover:text-dark cursor-pointer focus:outline-0">
               Register
             </button>
           </Link>

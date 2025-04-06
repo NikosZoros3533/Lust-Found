@@ -1,15 +1,19 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import SearchCityInput from "../../components/SearchCityInput";
 import * as z from "zod";
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { createConnection } from "../../fetchFunctions";
+import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
 
 const postSchema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters."),
   encounterDescription: z
     .string()
     .min(10, "Description must be at least 10 characters."),
-  encounterCity: z.string().min(2, "Location is required."),
   encounterPoint: z.string().min(2, "Location is required."),
-  gender: z.string().min(2, "Location is required."),
   targetGender: z.string().min(2, "Location is required."),
 });
 
@@ -22,13 +26,33 @@ const CreateConnection = () => {
     resolver: zodResolver(postSchema),
   });
 
+  const [city, setCity] = useState("");
+  const navigate=useNavigate()
+  const { mutate } = useMutation({
+    mutationFn: createConnection,
+    onSuccess: () => {
+      // queryClient.invalidateQueries({ queryKey: ["posts"] });
+      toast.success("Connection Created Succesfully");
+      navigate("/connections");
+    },
+  });
+
+  function handleCitySelection(selectedCity) {
+    setCity(selectedCity);
+    console.log(selectedCity);
+  }
+
   const onSubmit = (data) => {
+    data = { ...data, encounterCity: city._id };
     console.log("Form Data:", data);
+    mutate(data); 
   };
+
   let cssInputClass =
     "w-full p-2 border rounded focus:bg-light3 focus:outline-0";
+
   return (
-    <div className="max-w-2xl mx-auto n px-18 py-10  m-6">
+    <div className="max-w-2xl min-h-screen mx-auto n px-18 py-10  m-6">
       <h1 className="text-3xl font-bold mb-8">Create a Missed Connection</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
@@ -56,14 +80,10 @@ const CreateConnection = () => {
             </p>
           )}
         </div>
-
         <div>
           <label className="block font-medium">Location</label>
-          <input
-            {...register("encounterCity")}
-            className={cssInputClass}
-            placeholder="Where did it happen?"
-          />
+          <SearchCityInput onSelect={handleCitySelection} />
+
           {errors.encounterCity && (
             <p className="text-light1 text-sm">
               {errors.encounterCity.message}
@@ -83,26 +103,7 @@ const CreateConnection = () => {
             </p>
           )}
         </div>
-        <div>
-          <label className="block font-medium">Gender</label>
-          <select
-            {...register("gender")}
-            className={cssInputClass}
-            placeholder="Your gender"
-          >
-            <option value={null} defaultValue={null}>
-              Select an option
-            </option>
-            <option value="male" defaultValue="male">
-              male
-            </option>
-            <option value="female">female</option>
-            <option value="other">other</option>
-          </select>
-          {errors.gender && (
-            <p className="text-light1 text-sm">{errors.gender.message}</p>
-          )}
-        </div>
+
         <div>
           <label className="block font-medium">Target Gender</label>
           <select

@@ -73,8 +73,59 @@ export async function signup({ nickname, password }) {
   }
 }
 
-export async function updateProfile() {}
+export async function updateProfile(formData) {
+  try {
+    const res = await fetch("/api/users/update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.error || "Something went wrong");
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
 
+}
+
+export async function fetchCities() {
+  try {
+    const res = await fetch("/api/cities");
+    const data = await res.json();
+    if (data.error) {
+      return null;
+    }
+    if (!res.ok) {
+      throw new Error(data.error || "Something went wrong");
+    }
+    return data;
+  } catch (error) {
+    throw new Error(error);
+  }
+  
+}
+
+export async function createConnection(data){
+  try {
+    const res = await fetch("/api/posts/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const dataRetrived = await res.json();
+    if (!res.ok) {
+      throw new Error(dataRetrived.error || "Something went wrong");
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
 export async function getConnections() {}
 export async function getConnection() {}
 export async function updateConnection() {}

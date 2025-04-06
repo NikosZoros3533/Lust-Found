@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema(
       required: true,
       unique: true,
       minlength: 4,
-      maxlength: 15,
+      maxlength: 30,
     },
     gender: {
       type: String,

@@ -51,7 +51,6 @@ export async function logout() {
   }
 }
 
-
 export async function signup({ nickname, password }) {
   try {
     const res = await fetch("/api/auth/signup", {
@@ -89,7 +88,6 @@ export async function updateProfile(formData) {
   } catch (error) {
     throw new Error(error);
   }
-
 }
 
 export async function fetchCities() {
@@ -106,10 +104,9 @@ export async function fetchCities() {
   } catch (error) {
     throw new Error(error);
   }
-  
 }
 
-export async function createConnection(data){
+export async function createConnection(data) {
   try {
     const res = await fetch("/api/posts/create", {
       method: "POST",
@@ -126,6 +123,38 @@ export async function createConnection(data){
     throw new Error(error);
   }
 }
-export async function getConnections() {}
-export async function getConnection() {}
+
+export async function getConnections() {
+  try {
+    const res = await fetch("/api/posts/all");
+    const data = await res.json();
+    if (data.error) {
+      return null;
+    }
+    if (!res.ok) {
+      throw new Error(data.error || "Something went wrong");
+    }
+    console.log(data);
+    return data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function getConnection({ id, signal }) {
+  try {
+    const res = await fetch(`/api/posts/${id}`, { signal });
+    const data = await res.json();
+    if (data.error) {
+      return null;
+    }
+    if (!res.ok) {
+      throw new Error(data.error || "Something went wrong");
+    }
+    console.log(data);
+    return data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
 export async function updateConnection() {}

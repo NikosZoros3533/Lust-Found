@@ -1,16 +1,20 @@
 import { useParams } from "react-router";
-import { posts } from "../../db";
 import ConnectionItem from "../../components/connectionsUI/ConnectionItem";
+import { useQuery } from "@tanstack/react-query";
+import { getConnection } from "../../fetchFunctions";
 
 export default function ConnectionDetail() {
   const params = useParams();
-  const post = posts.find((post) => post._id === params.id);
+  const{data:post}=useQuery({
+    queryKey: ["posts",params.id],
+    queryFn: ({signal})=>getConnection({signal,id:params.id}),
+  })
   console.log(post);
 
   return (
     <div className="min-h-screen">
       <div className="mt-10">
-        <ConnectionItem post={post} />
+        {/* <ConnectionItem post={post} /> */}
       </div>
     </div>
   );

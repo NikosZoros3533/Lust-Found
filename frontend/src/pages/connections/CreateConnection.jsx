@@ -4,7 +4,7 @@ import SearchCityInput from "../../components/SearchCityInput";
 import * as z from "zod";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { createConnection } from "../../fetchFunctions";
+import { createConnection ,queryClient} from "../../fetchFunctions";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
 
@@ -27,12 +27,12 @@ const CreateConnection = () => {
   });
 
   const [city, setCity] = useState("");
-  const navigate=useNavigate()
-  const { mutate } = useMutation({
+  let navigate = useNavigate();
+  const { mutate, isLoading } = useMutation({
     mutationFn: createConnection,
     onSuccess: () => {
-      // queryClient.invalidateQueries({ queryKey: ["posts"] });
       toast.success("Connection Created Succesfully");
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
       navigate("/connections");
     },
   });
@@ -45,7 +45,7 @@ const CreateConnection = () => {
   const onSubmit = (data) => {
     data = { ...data, encounterCity: city._id };
     console.log("Form Data:", data);
-    mutate(data); 
+    mutate(data);
   };
 
   let cssInputClass =
@@ -131,6 +131,7 @@ const CreateConnection = () => {
 border-light3
 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] hover:text-light3
 active:border-b-[2px] active:brightness-90 active:translate-y-[2px]"
+          disabled={isLoading}
         >
           Connect
         </button>

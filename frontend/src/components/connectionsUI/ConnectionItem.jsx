@@ -43,7 +43,7 @@ export default function ConnectionItem({ post }) {
           {post.encounterPoint}, {post.encounterCity.City} (
           {post.encounterCity.Region})
         </span>
-        <span>• {new Date(post.encounterDate).toLocaleDateString()}</span>
+        <span>• {new Date(post.createdAt).toLocaleDateString()}</span>
       </div>
 
       {/* Likes & Comments Count */}

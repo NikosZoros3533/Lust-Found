@@ -135,7 +135,7 @@ export default function EditProfile() {
           </div>
           <div className={cssBgClass}>
             <label className="text-lg font-semibold">City</label>
-            <SearchCityInput onSelect={handleCitySelection} userCity={user.city?.City}/>
+            <SearchCityInput onSelect={handleCitySelection} userCity={user.city?.City} className="mt-2 w-full p-3 rounded-lg bg-light1 shadow-2xl focus:outline-none focus:bg-dark focus:text-light2"/>
           </div>
         </div>
         <div className="bg-light1 p-6 rounded-xl">

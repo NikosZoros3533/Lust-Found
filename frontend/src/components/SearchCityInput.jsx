@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState, useEffect, useRef } from "react";
 import { fetchCities } from "../fetchFunctions";
 
-const SearchCityInput = ({ userCity, onSelect}) => {
+const SearchCityInput = ({ userCity, onSelect,className=""}) => {
   const [searchTerm, setSearchTerm] = useState(userCity || "");
   const [cities, setCities] = useState([]);
   const [filteredCities, setFilteredCities] = useState([]);
@@ -74,7 +74,7 @@ const SearchCityInput = ({ userCity, onSelect}) => {
     <div className="relative w-64 ">
       <input
         type="text"
-        className="mt-2 w-full p-3 rounded-lg bg-light1 shadow-2xl focus:outline-none focus:bg-dark focus:text-light2"
+        className={`${className}`}
         placeholder="Search city..."
         value={searchTerm}
         onChange={handleSearch}

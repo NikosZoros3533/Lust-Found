@@ -82,7 +82,7 @@ const CreateConnection = () => {
         </div>
         <div>
           <label className="block font-medium">Location</label>
-          <SearchCityInput onSelect={handleCitySelection} />
+          <SearchCityInput onSelect={handleCitySelection} className={cssInputClass}/>
 
           {errors.encounterCity && (
             <p className="text-light1 text-sm">

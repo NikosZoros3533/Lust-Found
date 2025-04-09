@@ -10,7 +10,7 @@ export default function Connections() {
   return (
     <div className="min-h-screen">
       {isLoading && <div className="flex justify-center items-center"><p>Loading...</p></div> }
-      <ConnectionList posts={posts} />
+      {posts && <ConnectionList posts={posts} />}
     </div>
   );
 }

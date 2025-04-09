@@ -157,4 +157,26 @@ export async function getConnection({ id, signal }) {
     throw new Error(error);
   }
 }
+
+export async function commentOnPost({comment,postId}){
+  console.log(postId);
+  
+  try {
+    const res = await fetch(`/api/posts/comment/${postId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(comment),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.error || "Something went wrong");
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+
+}
+
 export async function updateConnection() {}

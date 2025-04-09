@@ -8,9 +8,16 @@ import {
 import Comment from "./Comment";
 import { useState } from "react";
 import { Link } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+import { getMe } from "../../fetchFunctions";
+import CommentInput from "./CommentInput";
 
 export default function ConnectionItem({ post }) {
   const [showComments, setShowComments] = useState(false);
+  const { data: user } = useQuery({
+    queryKey: ["user"],
+    queryFn: getMe,
+  });
 
   function toggleShowComments() {
     setShowComments((prevState) => !prevState);
@@ -67,15 +74,18 @@ export default function ConnectionItem({ post }) {
             <Comment comment={post.comments[0]} />
           </div>
         ))}
-      <div className="w-full flex justify-center">
-        <button onClick={toggleShowComments}>
-          {showComments ? (
-            <ArrowUpCircleIcon className="h-8 w-8" />
-          ) : (
-            <ArrowDownCircleIcon className="h-8 w-8" />
-          )}
-        </button>
-      </div>
+      {post.comments.length > 1 && (
+        <div className="w-full flex justify-center">
+          <button onClick={toggleShowComments}>
+            {showComments ? (
+              <ArrowUpCircleIcon className="h-8 w-8" />
+            ) : (
+              <ArrowDownCircleIcon className="h-8 w-8" />
+            )}
+          </button>
+        </div>
+      )}
+      {user && <CommentInput postId={post._id} />}
     </div>
   );
 }

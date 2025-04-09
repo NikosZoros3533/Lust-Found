@@ -26,6 +26,7 @@ function App() {
   const { data: user, isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: getMe,
+    staleTime: 15 * 24 * 60 * 60 * 1000,
   });
   if (isLoading) {
     return (

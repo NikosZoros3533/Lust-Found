@@ -1,5 +1,4 @@
 import {
-  HeartIcon,
   MapPinIcon,
   UserCircleIcon,
   ArrowDownCircleIcon,
@@ -11,6 +10,8 @@ import { Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { getMe } from "../../fetchFunctions";
 import CommentInput from "./CommentInput";
+import LikeButton from "./LikeButton";
+import SettingsButton from "./SettingsButton";
 
 export default function ConnectionItem({ post }) {
   const [showComments, setShowComments] = useState(false);
@@ -22,8 +23,21 @@ export default function ConnectionItem({ post }) {
   function toggleShowComments() {
     setShowComments((prevState) => !prevState);
   }
+
+  function checkProperty() {
+    const postUserId = post.user._id;
+    const myId = user._id;
+
+    return postUserId === myId;
+  }
+  const property = checkProperty();
   return (
     <div className="bg-light2 p-12 rounded-lg shadow-md hover:shadow-lg transition-all space-y-3">
+      {property && (
+        <div className="w-full flex justify-end">
+          <SettingsButton/>
+        </div>
+      )}
       {/* Header - User & Date */}
       <div className="flex justify-between items-center">
         <div className="flex items-center space-x-2">
@@ -55,10 +69,7 @@ export default function ConnectionItem({ post }) {
 
       {/* Likes & Comments Count */}
       <div className="flex justify-end items-center text-base">
-        <button className="flex items-center space-x-1 bg-dark text-light2 p-3 rounded-3xl cursor-pointer">
-          <HeartIcon className="h-4 w-4 text-light3" />
-          <span>{post.interests.length}</span>
-        </button>
+        <LikeButton post={post} />
       </div>
 
       {/* Comments Section */}

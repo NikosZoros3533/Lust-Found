@@ -35,6 +35,17 @@ a.activeInConnection{
   color:var(--color-light3)
 }
 
+#loader{
+  width: 48px;
+    height: 48px;
+    border: 5px solid #222021;
+    border-bottom-color: #9b84c3;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
 @font-face {
   font-family: "menu";
   src: url("/fonts/menu/Chillax-Bold.woff2") format("woff2"),

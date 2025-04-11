@@ -1,7 +1,9 @@
 import { QueryClient } from "@tanstack/react-query";
 
+
 export const queryClient = new QueryClient();
 
+//Auth functions
 export async function getMe() {
   try {
     const res = await fetch("/api/auth/me");
@@ -72,6 +74,7 @@ export async function signup({ nickname, password }) {
   }
 }
 
+//Profile functions
 export async function updateProfile(formData) {
   try {
     const res = await fetch("/api/users/update", {
@@ -106,6 +109,7 @@ export async function fetchCities() {
   }
 }
 
+//Connections functions
 export async function createConnection(data) {
   try {
     const res = await fetch("/api/posts/create", {
@@ -158,9 +162,30 @@ export async function getConnection({ id, signal }) {
   }
 }
 
-export async function commentOnPost({comment,postId}){
-  console.log(postId);
+export async function updateConnection() {}
+
+export async function deleteConnection() {}
+
+export async function likeConnection(post) {
+  console.log(post._id);
   
+  try {
+    const res = await fetch(`/api/posts/interest/${post._id}`, {
+      method: "POST",
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.error || "Something went wrong");
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+//comment Post
+export async function commentOnPost({ comment, postId }) {
+  console.log(postId);
+
   try {
     const res = await fetch(`/api/posts/comment/${postId}`, {
       method: "POST",
@@ -176,7 +201,8 @@ export async function commentOnPost({comment,postId}){
   } catch (error) {
     throw new Error(error);
   }
-
 }
 
-export async function updateConnection() {}
+export async function updateComment() {}
+
+export async function deleteComment() {}

@@ -2,6 +2,7 @@ import { useParams } from "react-router";
 import ConnectionItem from "../../components/connectionsUI/ConnectionItem";
 import { useQuery } from "@tanstack/react-query";
 import { getConnection } from "../../fetchFunctions";
+import LoaderSpinner from "../../components/connectionsUI/Skeletons/LoaderSpinner";
 
 export default function ConnectionDetail() {
   const params = useParams();
@@ -15,9 +16,7 @@ export default function ConnectionDetail() {
     <div className="min-h-screen">
       <div className="mt-10">
         {isLoading && (
-          <div className="flex justify-center items-center">
-            <p>Loading...</p>
-          </div>
+          <LoaderSpinner/>
         )}
         {post && <ConnectionItem post={post} />}
       </div>

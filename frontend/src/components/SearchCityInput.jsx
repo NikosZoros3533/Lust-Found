@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useState, useEffect, useRef } from "react";
 import { fetchCities } from "../fetchFunctions";
+import LoaderSpinner from "./connectionsUI/Skeletons/LoaderSpinner";
 
 const SearchCityInput = ({ userCity, onSelect,className=""}) => {
   const [searchTerm, setSearchTerm] = useState(userCity || "");
@@ -65,9 +66,7 @@ const SearchCityInput = ({ userCity, onSelect,className=""}) => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex justify-center items-center">
-        <p>Loading...</p>
-      </div>
+      <LoaderSpinner/>
     );
   }
   return (

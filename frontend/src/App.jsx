@@ -21,6 +21,7 @@ import {
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { useQuery } from "@tanstack/react-query";
+import LoaderSpinner from "./components/connectionsUI/Skeletons/LoaderSpinner";
 
 function App() {
   const { data: user, isLoading } = useQuery({
@@ -30,9 +31,7 @@ function App() {
   });
   if (isLoading) {
     return (
-      <div className="min-h-screen flex justify-center items-center">
-        <p>Loading...</p>
-      </div>
+      <LoaderSpinner/>
     );
   }
   return (

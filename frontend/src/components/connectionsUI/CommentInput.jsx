@@ -24,6 +24,7 @@ export default function CommentInput({ postId }) {
       mutate(commentToSend);
     }
   };
+  
   return (
     <input
       type="text"

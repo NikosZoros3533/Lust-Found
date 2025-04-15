@@ -21,7 +21,7 @@ export default function Header() {
   let nonActiveClass = "text-dark text-lg font-menu hover:text-light2";
 
   return (
-    <header className="bg-light3 p-4 sm:p-6 shadow-md">
+    <header className="bg-light3 p-4 sm:p-6 shadow-md ">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <NavLink

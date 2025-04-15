@@ -52,7 +52,7 @@ const CreateConnection = () => {
     "w-full p-2 border rounded focus:bg-light3 focus:outline-0";
 
   return (
-    <div className="max-w-2xl min-h-screen mx-auto n px-18 py-10  m-6">
+    <div className="max-w-2xl min-h-screen mx-auto  px-18 py-10  m-6">
       <h1 className="text-3xl font-bold mb-8">Create a Missed Connection</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>

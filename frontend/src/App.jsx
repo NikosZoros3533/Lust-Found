@@ -3,7 +3,7 @@ import LoginPage from "./pages/auth/LoginPage";
 import SignupPage from "./pages/auth/SignupPage";
 import Connections from "./pages/connections/Connections";
 import ConnectionDetail from "./pages/connections/ConnectionDetail";
-import EditConnection from "./pages/connections/EditConnection";
+
 import CreateConnection from "./pages/connections/CreateConnection";
 import ConnectionsRoot from "./pages/ConnectionsRoot";
 import MyConnections from "./pages/connections/MyConnections";
@@ -30,9 +30,7 @@ function App() {
     staleTime: 15 * 24 * 60 * 60 * 1000,
   });
   if (isLoading) {
-    return (
-      <LoaderSpinner/>
-    );
+    return <LoaderSpinner />;
   }
   return (
     <Router>
@@ -54,7 +52,7 @@ function App() {
           element={user ? <Profile /> : <Navigate to="/login" />}
         />
         <Route
-          path="/profile/edit"
+          path="/profile/ "
           element={user ? <EditProfile /> : <Navigate to="/login" />}
         />
 
@@ -70,10 +68,6 @@ function App() {
             element={user ? <CreateConnection /> : <Navigate to="/signup" />}
           />
           <Route path=":id" element={<ConnectionDetail />} />
-          <Route
-            path=":id/edit"
-            element={user ? <EditConnection /> : <Navigate to="/connections" />}
-          />
         </Route>
       </Routes>
       <Footer />

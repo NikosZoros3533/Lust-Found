@@ -30,12 +30,18 @@ export default function ConnectionItem({ post }) {
 
     return postUserId === myId;
   }
-  const property = checkProperty();
+  let property = null;
+  if (user) {
+    property = checkProperty();
+  }
+
+  const item = { type: "post", itemObject: post };
+
   return (
     <div className="bg-light2 p-12 rounded-lg shadow-md hover:shadow-lg transition-all space-y-3">
       {property && (
         <div className="w-full flex justify-end">
-          <SettingsButton/>
+          <SettingsButton item={item} />
         </div>
       )}
       {/* Header - User & Date */}

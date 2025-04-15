@@ -2,7 +2,6 @@ import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { queryClient } from "../../fetchFunctions";
 import SettingsButton from "./SettingsButton";
 
-
 export default function Comment({ comment }) {
   const user = queryClient.getQueryData(["user"]);
 
@@ -12,13 +11,18 @@ export default function Comment({ comment }) {
 
     return commentUserId === myId;
   }
-  const property = checkProperty();
+
+  let property = null;
+  if (user) {
+     property = checkProperty();
+  }
+  const item = { type: "comment", itemObject: comment };
 
   return (
     <div className="bg-light1 p-3 rounded-xl shadow-md">
       {property && (
         <div className="w-full flex justify-end">
-          <SettingsButton/>
+          <SettingsButton item={item}/>
         </div>
       )}
       <p className="text-sm font-semibold text-dark mb-1 flex flex-row items-end">

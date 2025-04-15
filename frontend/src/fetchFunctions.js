@@ -1,6 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
 
-
 export const queryClient = new QueryClient();
 
 //Auth functions
@@ -162,13 +161,43 @@ export async function getConnection({ id, signal }) {
   }
 }
 
-export async function updateConnection() {}
+export async function updateConnection({ formData, id }) {
+  try {
+    const res = await fetch(`/api/posts/update-post/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    const dataRetrived = await res.json();
+    if (!res.ok) {
+      throw new Error(dataRetrived.error || "Something went wrong");
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
 
-export async function deleteConnection() {}
+export async function deleteConnection({id}) {
+  try {
+    const res = await fetch(`/api/posts/delete-post/${id}`, {
+      method: "DELETE",
+    });
+    const data = await res.json();
+    
+    if (!res.ok) {
+      throw new Error(data.error || "Something went wrong");
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+
+}
 
 export async function likeConnection(post) {
   console.log(post._id);
-  
+
   try {
     const res = await fetch(`/api/posts/interest/${post._id}`, {
       method: "POST",
@@ -203,6 +232,22 @@ export async function commentOnPost({ comment, postId }) {
   }
 }
 
-export async function updateComment() {}
+export async function updateComment({ formData, commentId,postId }) {
+  try {
+    const res = await fetch(`/api/posts/update-comment/${postId}/${commentId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    const dataRetrived = await res.json();
+    if (!res.ok) {
+      throw new Error(dataRetrived.error || "Something went wrong");
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
 
 export async function deleteComment() {}

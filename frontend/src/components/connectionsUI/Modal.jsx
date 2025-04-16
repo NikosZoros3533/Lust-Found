@@ -7,8 +7,10 @@ import {
   updateComment,
   queryClient,
   deleteConnection,
+  deleteComment,
 } from "../../fetchFunctions";
 import toast from "react-hot-toast";
+import { usePostContext } from "../../store/PostProvider";
 
 export default function Modal({ type, item, handleClose, isOpen }) {
   const [city, setCity] = useState(null);
@@ -18,11 +20,14 @@ export default function Modal({ type, item, handleClose, isOpen }) {
   let cssInputClass =
     "w-full p-2 border rounded focus:bg-light3 focus:outline-0";
 
+  const { postId } = usePostContext();
+
   const { mutate: updatePost } = useMutation({
     mutationFn: updateConnection,
     onSuccess: () => {
       toast.success("Connection Updated Succesfully");
       queryClient.invalidateQueries({ queryKey: ["posts"] });
+      handleClose();
     },
   });
 
@@ -31,6 +36,7 @@ export default function Modal({ type, item, handleClose, isOpen }) {
     onSuccess: () => {
       toast.success("Connection Updated Succesfully");
       queryClient.invalidateQueries({ queryKey: ["posts"] });
+      handleClose();
     },
   });
 
@@ -39,6 +45,16 @@ export default function Modal({ type, item, handleClose, isOpen }) {
     onSuccess: () => {
       toast.success("Connection Deleted Succesfully");
       queryClient.invalidateQueries({ queryKey: ["posts"] });
+      handleClose();
+    },
+  });
+
+  const { mutate: deleteComm } = useMutation({
+    mutationFn: deleteComment,
+    onSuccess: () => {
+      toast.success("Comment Deleted Succesfully");
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      handleClose();
     },
   });
 
@@ -87,15 +103,22 @@ export default function Modal({ type, item, handleClose, isOpen }) {
     }
 
     console.log(updatedFields);
-    updateComm({formData:{...updatedFields},id:item.itemObject._id})
+    updateComm({
+      formData: { ...updatedFields },
+      postId: postId,
+      commentId: item.itemObject._id,
+    });
   }
 
   function handlePostDelete(e) {
-    e.preventDefault()
-    deletePost({id:item.itemObject._id})
+    e.preventDefault();
+    deletePost({ id: item.itemObject._id });
   }
 
-  function onCommentDelete(e) {}
+  function handleCommentDelete(e) {
+    e.preventDefault();
+    deleteComm({ postId: postId, commentId: item.itemObject._id });
+  }
 
   if (type === "edit") {
     if (item.type === "post") {
@@ -200,7 +223,7 @@ border-light3 hover:bg-light3 opacity-60"
               <button
                 className="cursor-pointer  bg-dark text-light2 py-2 px-6 rounded-lg
 border-light3 hover:bg-light3"
-                type="submit" 
+                type="submit"
               >
                 Save
               </button>
@@ -221,10 +244,17 @@ border-light3 hover:bg-light3 opacity-60"
           >
             No
           </button>
+
           <button
             className="cursor-pointer  bg-dark text-light2 py-2 px-6 rounded-lg
 border-light3 hover:bg-light3"
-            onClick={handlePostDelete}
+            onClick={(e) => {
+              if (item.type === "post") {
+                handlePostDelete(e);
+              } else if (item.type === "comment") {
+                handleCommentDelete(e);
+              }
+            }}
           >
             Yes
           </button>

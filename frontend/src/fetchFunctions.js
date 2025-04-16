@@ -179,20 +179,19 @@ export async function updateConnection({ formData, id }) {
   }
 }
 
-export async function deleteConnection({id}) {
+export async function deleteConnection({ id }) {
   try {
     const res = await fetch(`/api/posts/delete-post/${id}`, {
       method: "DELETE",
     });
     const data = await res.json();
-    
+
     if (!res.ok) {
       throw new Error(data.error || "Something went wrong");
     }
   } catch (error) {
     throw new Error(error);
   }
-
 }
 
 export async function likeConnection(post) {
@@ -232,15 +231,18 @@ export async function commentOnPost({ comment, postId }) {
   }
 }
 
-export async function updateComment({ formData, commentId,postId }) {
+export async function updateComment({ formData, postId, commentId }) {
   try {
-    const res = await fetch(`/api/posts/update-comment/${postId}/${commentId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+    const res = await fetch(
+      `/api/posts/update-comment/${postId}/${commentId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
     const dataRetrived = await res.json();
     if (!res.ok) {
       throw new Error(dataRetrived.error || "Something went wrong");
@@ -250,4 +252,20 @@ export async function updateComment({ formData, commentId,postId }) {
   }
 }
 
-export async function deleteComment() {}
+export async function deleteComment({ postId, commentId }) {
+  try {
+    const res = await fetch(
+      `/api/posts/delete-comment/${postId}/${commentId}`,
+      {
+        method: "POST",
+      }
+    );
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || "Something went wrong");
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+}

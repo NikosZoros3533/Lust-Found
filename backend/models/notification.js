@@ -12,6 +12,10 @@ const notificationSchema = new mongoose.Schema(
       ref: "Post",
       required: true,
     },
+    onPostItemId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Post", 
+    },
     type: {
       type: String,
       required: true,

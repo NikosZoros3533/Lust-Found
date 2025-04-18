@@ -41,13 +41,8 @@ export default function ConnectionItem({ post }) {
   return (
     <PostProvider post={post}>
       <div className="bg-light2 p-12 rounded-lg shadow-md hover:shadow-lg transition-all space-y-3">
-        {property && (
-          <div className="w-full flex justify-end">
-            <SettingsButton item={item} />
-          </div>
-        )}
         {/* Header - User & Date */}
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-start">
           <div className="flex items-center space-x-2">
             <UserCircleIcon className="h-14 w-14 text-dark" />
             <div>
@@ -57,6 +52,7 @@ export default function ConnectionItem({ post }) {
               </p>
             </div>
           </div>
+          {property && <SettingsButton item={item} />}
         </div>
 
         {/* Title & Description */}

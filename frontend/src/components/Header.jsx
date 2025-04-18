@@ -1,24 +1,22 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"; 
+import { Bars3Icon, XMarkIcon, BellIcon } from "@heroicons/react/24/outline";
 import LogoutButton from "./LogoutButton";
 import { getMe } from "../fetchFunctions";
 import { useQuery } from "@tanstack/react-query";
 
-
-
 export default function Header() {
-  
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
-  
-  const {data:user}=useQuery({
+
+  const { data: user } = useQuery({
     queryKey: ["user"],
     queryFn: getMe,
   });
 
   let activeClass = "text-xl font-menu text-light2";
   let nonActiveClass = "text-dark text-lg font-menu hover:text-light2";
+  let isNotifActive = false;
 
   return (
     <header className="bg-light3 p-4 sm:p-6 shadow-md ">
@@ -48,17 +46,33 @@ export default function Header() {
         >
           <ul className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 p-4 sm:p-0">
             {user && (
-              <li>
-                <NavLink
-                  to="profile"
-                  className={({ isActive }) =>
-                    isActive ? activeClass : nonActiveClass
-                  }
-                  onClick={toggleMenu}
-                >
-                  Profile
-                </NavLink>
-              </li>
+              <>
+                <li>
+                  <NavLink
+                    to="notifications"
+                    className={({ isActive }) =>
+                      isActive ? activeClass : nonActiveClass
+                    }
+                    onClick={toggleMenu}
+                  >
+                    <BellIcon
+                      className="h-7 w-7"
+                      fill="#ea9950"
+                    />
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="profile"
+                    className={({ isActive }) =>
+                      isActive ? activeClass : nonActiveClass
+                    }
+                    onClick={toggleMenu}
+                  >
+                    Profile
+                  </NavLink>
+                </li>
+              </>
             )}
 
             <li>
@@ -87,7 +101,7 @@ export default function Header() {
                   }
                   onClick={toggleMenu}
                 >
-                  Log In 
+                  Log In
                 </NavLink>
               </li>
             )}

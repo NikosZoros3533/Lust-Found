@@ -4,7 +4,7 @@ import SearchCityInput from "../../components/SearchCityInput";
 import * as z from "zod";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { createConnection ,queryClient} from "../../fetchFunctions";
+import { createConnection, queryClient } from "../../fetchFunctions";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
 
@@ -39,12 +39,10 @@ const CreateConnection = () => {
 
   function handleCitySelection(selectedCity) {
     setCity(selectedCity);
-    console.log(selectedCity);
   }
 
   const onSubmit = (data) => {
     data = { ...data, encounterCity: city._id };
-    console.log("Form Data:", data);
     mutate(data);
   };
 
@@ -82,7 +80,10 @@ const CreateConnection = () => {
         </div>
         <div>
           <label className="block font-medium">Location</label>
-          <SearchCityInput onSelect={handleCitySelection} className={cssInputClass}/>
+          <SearchCityInput
+            onSelect={handleCitySelection}
+            className={cssInputClass}
+          />
 
           {errors.encounterCity && (
             <p className="text-light1 text-sm">

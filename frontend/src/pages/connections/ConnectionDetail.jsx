@@ -10,7 +10,6 @@ export default function ConnectionDetail() {
     queryKey: ["posts", params.id],
     queryFn: ({ signal }) => getConnection({ signal, id: params.id }),
   });
-  console.log(post);
 
   return (
     <div className="min-h-screen">

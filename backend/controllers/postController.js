@@ -129,6 +129,7 @@ export const interestUninterestPost = async (req, res) => {
         from: userId,
         on: post.user,
         type: "interest",
+        onPostItemId: postId,
       });
       await notification.save();
       const updatedInterests = post.interests;
@@ -155,10 +156,12 @@ export const commentOnPost = async (req, res) => {
     const comment = { user: userId, text };
     post.comments.push(comment);
     await post.save();
+
     const notification = new Notification({
       from: userId,
       on: post.user,
       type: "comment",
+      onPostItemId: postId,
     });
     await notification.save();
     res.status(200).json(post);

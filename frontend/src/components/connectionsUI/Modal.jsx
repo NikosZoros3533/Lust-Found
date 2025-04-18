@@ -88,7 +88,6 @@ export default function Modal({ type, item, handleClose, isOpen }) {
       updatedFields = { ...updatedFields, targetGender: data.targetGender };
     }
 
-    console.log(updatedFields);
     updatePost({ formData: { ...updatedFields }, id: item.itemObject._id });
   }
 
@@ -96,13 +95,11 @@ export default function Modal({ type, item, handleClose, isOpen }) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    console.log(savedComment);
     let updatedFields = {};
     if (data.text !== savedComment.text) {
       updatedFields = { text: data.text };
     }
 
-    console.log(updatedFields);
     updateComm({
       formData: { ...updatedFields },
       postId: postId,

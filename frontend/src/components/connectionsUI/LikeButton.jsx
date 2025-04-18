@@ -5,13 +5,12 @@ import { likeConnection, queryClient } from "../../fetchFunctions";
 export default function LikeButton({ post }) {
   const { mutate, isPending } = useMutation({
     mutationFn: likeConnection,
-    onSuccess:()=>{
-      queryClient.invalidateQueries({queryKey:["posts"]})
-    }
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    },
   });
 
   function handleLike() {
-    console.log(post._id);
     mutate(post);
   }
 

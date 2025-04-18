@@ -13,7 +13,6 @@ export async function getMe() {
     if (!res.ok) {
       throw new Error(data.error || "Something went wrong");
     }
-    console.log(data);
     return data;
   } catch (error) {
     throw new Error(error);
@@ -65,7 +64,6 @@ export async function signup({ nickname, password }) {
     if (!res.ok) {
       throw new Error(data.error || "Failed to create an acount");
     }
-    console.log(nickname, password);
     return { nickname, password };
   } catch (error) {
     console.log(error);
@@ -137,7 +135,6 @@ export async function getConnections() {
     if (!res.ok) {
       throw new Error(data.error || "Something went wrong");
     }
-    console.log(data);
     return data;
   } catch (error) {
     throw new Error(error);
@@ -154,7 +151,6 @@ export async function getConnection({ id, signal }) {
     if (!res.ok) {
       throw new Error(data.error || "Something went wrong");
     }
-    console.log(data);
     return data;
   } catch (error) {
     throw new Error(error);
@@ -195,7 +191,7 @@ export async function deleteConnection({ id }) {
 }
 
 export async function likeConnection(post) {
-  console.log(post._id);
+  
 
   try {
     const res = await fetch(`/api/posts/interest/${post._id}`, {
@@ -212,7 +208,7 @@ export async function likeConnection(post) {
 
 //comment Post
 export async function commentOnPost({ comment, postId }) {
-  console.log(postId);
+ 
 
   try {
     const res = await fetch(`/api/posts/comment/${postId}`, {
@@ -260,6 +256,37 @@ export async function deleteComment({ postId, commentId }) {
         method: "POST",
       }
     );
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || "Something went wrong");
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function getNotifications() {
+  try {
+    const res = await fetch("/api/notifications");
+    const data = await res.json();
+    if (data.error) {
+      return null;
+    }
+    if (!res.ok) {
+      throw new Error(data.error || "Something went wrong");
+    }
+    return data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function deleteNotifications() {
+  try {
+    const res = await fetch("/api/notifications", {
+      method: "DELETE",
+    });
     const data = await res.json();
 
     if (!res.ok) {

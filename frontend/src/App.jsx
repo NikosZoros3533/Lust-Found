@@ -22,6 +22,9 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { useQuery } from "@tanstack/react-query";
 import LoaderSpinner from "./components/connectionsUI/Skeletons/LoaderSpinner";
+import Notifications from "./pages/profile/Notifications";
+import NotificationRoot from "./components/notifications/NotificationRoot";
+import MyLikes from "./pages/profile/MyLikes";
 
 function App() {
   const { data: user, isLoading } = useQuery({
@@ -52,9 +55,16 @@ function App() {
           element={user ? <Profile /> : <Navigate to="/login" />}
         />
         <Route
-          path="/profile/ "
+          path="/profile/edit"
           element={user ? <EditProfile /> : <Navigate to="/login" />}
         />
+        <Route
+          path="/notifications"
+          element={user ? <NotificationRoot /> : <Navigate to="/login" />}
+        >
+          <Route index element={<Notifications/>}></Route>
+          <Route path="my-likes" element={<MyLikes/>}></Route>
+        </Route>
 
         {/* Connections Routes */}
         <Route path="/connections" element={<ConnectionsRoot />}>

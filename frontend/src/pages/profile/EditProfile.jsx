@@ -53,12 +53,12 @@ export default function EditProfile() {
 
   const onSubmit = (data) => {
     let updatedFields = {};
-    console.log(data);
-    
+
     if (data.nickname !== user?.nickname)
       updatedFields.nickname = data.nickname;
     if (data.gender !== user?.gender) updatedFields.gender = data.gender;
-    if (JSON.stringify(city?._id) !== JSON.stringify(user?.city?._id)) updatedFields.city = city?._id;
+    if (JSON.stringify(city?._id) !== JSON.stringify(user?.city?._id))
+      updatedFields.city = city?._id;
     if (data.selfDescription !== user?.selfDescription)
       updatedFields.selfDescription = data.selfDescription;
     if (
@@ -67,7 +67,6 @@ export default function EditProfile() {
     )
       updatedFields.targetDescriptions = targetDescriptions;
 
-    console.log("Updated fields:", updatedFields);
     mutate(updatedFields);
   };
 
@@ -89,9 +88,7 @@ export default function EditProfile() {
   };
 
   const handleCitySelection = (selectedCity) => {
-    
     setCity(selectedCity);
-    console.log(selectedCity);
   };
 
   let navigate = useNavigate();
@@ -135,7 +132,11 @@ export default function EditProfile() {
           </div>
           <div className={cssBgClass}>
             <label className="text-lg font-semibold">City</label>
-            <SearchCityInput onSelect={handleCitySelection} userCity={user.city?.City} className="mt-2 w-full p-3 rounded-lg bg-light1 shadow-2xl focus:outline-none focus:bg-dark focus:text-light2"/>
+            <SearchCityInput
+              onSelect={handleCitySelection}
+              userCity={user.city?.City}
+              className="mt-2 w-full p-3 rounded-lg bg-light1 shadow-2xl focus:outline-none focus:bg-dark focus:text-light2"
+            />
           </div>
         </div>
         <div className="bg-light1 p-6 rounded-xl">

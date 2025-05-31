@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import usersRoutes from "./routes/usersRoute.js";
@@ -14,6 +15,7 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
+const __dirname = path.resolve();
 
 //middleware
 app.use(bodyParser.json());
@@ -27,6 +29,14 @@ app.use("/api/auth", authRoutes);
 app.use("/api/posts", postsRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/cities", cityRoutes);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+  });
+}
 
 app.get("/", (req, res) => {
   res.send("Hello from homepage");

@@ -17,6 +17,7 @@
     "@tailwindcss/vite": "^4.0.6",
     "@tanstack/react-query": "^5.67.3",
     "date-fns": "^4.1.0",
+    "lustandfound": "file:..",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
